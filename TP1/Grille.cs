@@ -66,7 +66,7 @@ namespace TP1
                     grille[i, j] = new Case(i, j);
                 }
             }
-            
+
             grille[0, 0].noeud = new Noeud("2", grille[1, 0]);
             grille[1, 0].noeud = new Noeud("3", grille[2, 0]);
             grille[2, 0].noeud = new Noeud("7", grille[2, 1]);
@@ -79,13 +79,13 @@ namespace TP1
             grille[4, 1].noeud = new Noeud("8", grille[4, 1]);
             grille[0, 2].noeud = new Noeud("6", grille[0, 1]);
             grille[1, 2].noeud = new Noeud("10", grille[1, 2]);
-            grille[2, 2].noeud = new Noeud("", grille[2, 2]); ;
+            grille[2, 2].noeud = new Noeud("■", grille[2, 2]); ;
             grille[3, 2].noeud = new Noeud("12", grille[4, 2]);
             grille[4, 2].noeud = new Noeud("15", grille[4, 3]);
             grille[0, 3].noeud = new Noeud("9", grille[0, 2]);
-            grille[1, 3].estMur = true;    
+            grille[1, 3].estMur = true;
             grille[2, 3].noeud = new Noeud("14", grille[2, 3]);
-            grille[3, 3].estMur = true;    
+            grille[3, 3].estMur = true;
             grille[4, 3].noeud = new Noeud("20", grille[4, 4]);
             grille[0, 4].noeud = new Noeud("13", grille[0, 3]);
             grille[1, 4].noeud = new Noeud("16", grille[0, 4]);
@@ -151,22 +151,22 @@ namespace TP1
         public int getNombrePrecedent()
         {
             int nombrePrecedent = 0;
-            if (this.Precedent == null)
+            if (precedent == null)
             {
                 return nombrePrecedent;
             }
             else
             {
-                return this.Precedent.getNombrePrecedent() + 1;
+                return this.precedent.getNombrePrecedent() + 1;
             }
         }
 
-        public string getSolution()
+        public string getSolutionMot()
         {
             string solution = "";
             if (this.getNombrePrecedent() > 0)
             {
-                solution += precedent.getSolution();
+                solution += precedent.getSolutionMot();
                 if (precedent.TroteuseX < TroteuseX)
                 {
                     solution += "Go Droite\n";
@@ -186,6 +186,17 @@ namespace TP1
             }
             return solution;
         }
+        public List<string> getSolutionVisuelle()
+        {
+
+            List<string> list = new List<string>();
+            if (this.getNombrePrecedent() > 0)
+            {
+                list = precedent.getSolutionVisuelle();
+            }
+            list.Add(getStringEtat());
+            return list;
+        }
 
         public int CompareTo(Grille other)
         {
@@ -201,7 +212,7 @@ namespace TP1
                 {
                     if (!grille[x, y].estMur)
                     {
-                        s += String.Format(" {0,2} ", grille[x,y].noeud.nom);
+                        s += String.Format(" {0,2} ", grille[x, y].noeud.nom);
                     }
                     else
                     {

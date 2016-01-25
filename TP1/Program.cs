@@ -10,7 +10,7 @@ namespace TP1
     {
         static void Main(string[] args)
         {
-            Console.Write(Solutionneur.Run());
+            Console.Write(Solutionneur.Run().getSortie());
         }
     }
 }

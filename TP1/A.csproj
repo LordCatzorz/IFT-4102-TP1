@@ -60,6 +60,7 @@
     <Compile Include="Noeud.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Questionnaire.cs" />
     <Compile Include="Solutionneur.cs" />
   </ItemGroup>
   <ItemGroup>

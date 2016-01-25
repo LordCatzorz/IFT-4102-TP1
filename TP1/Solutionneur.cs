@@ -14,8 +14,9 @@ namespace TP1
 
         }
 
-        static public string Run()
+        static public Questionnaire Run()
         {
+            Questionnaire questionnaire = new Questionnaire();
             OrderedBag<Grille> OPEN = new OrderedBag<Grille>();
             OrderedBag<Grille> CLOSE = new OrderedBag<Grille>();
             Grille S = new Grille();
@@ -24,11 +25,18 @@ namespace TP1
             {
                 Grille n = OPEN.RemoveFirst();
                 CLOSE.Add(n);
+                questionnaire.solutionsExplorer.Add(n.getStringEtat());
                 if (n.getDistanceSolution() == 0)
                 {
-                    return n.getSolution();
+                    questionnaire.solutionMot = n.getSolutionMot();
+                    questionnaire.solutionVisuelle = n.getSolutionVisuelle();
+                    for (int i = 0; i < questionnaire.solutionVisuelle.Count; i++)
+                    {
+
+                        Console.Write("\n---Étape" + i + "----\n" +  questionnaire.solutionVisuelle[i] + "----------");
+                    }
+                    return questionnaire;
                 }
-                Console.Write(n.getStringEtat()+"------------\n");
                 foreach (Grille nPrime in n.getListSuccessor())
                 {
                     if (Contient(OPEN, nPrime) != -1)
@@ -55,8 +63,8 @@ namespace TP1
                     }
                 }
             }
-
-            return "Aucun chemin possible";
+            questionnaire.solutionMot = "Aucun chemin possible";
+            return questionnaire;
         }
         
 
