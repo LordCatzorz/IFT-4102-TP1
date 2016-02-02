@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wintellect.PowerCollections;
 
-namespace TP1
+namespace Question1
 {
     class Solutionneur
     {

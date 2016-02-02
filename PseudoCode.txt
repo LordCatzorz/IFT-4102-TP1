@@ -1,0 +1,39 @@
+have INITIAL_T to a value
+have ALPHA to a value between 0 and 1 excluding
+have G the sudoku to solve
+have C a set of all the fixed tupples and their value
+while true
+  have T = INITIAL_T
+  have STUCK = 0
+  have X an empty set of tupples and their value
+  for i start at 1 to 9
+    for j start a 1 to 9
+      Add to X the tupple {i,j}
+    end for
+  end for
+  
+  Add to X all the values of C.  
+  
+  randomly place all value of 1 to 9 in the values of i,j in X such as only once the value appear in a 3x3 square
+  set COST the value calculated by counting the number of repeated value in a row and in a column of X'
+  
+  while COST is not 0 and STUCK < 20
+    have I,J values between 1 and 9 such as {I,J} is not in C
+    have K value between ((((I-1)/3)*3)+1) and ((((I-1)/3)*3)+3) and
+      have L value between ((((J-1)/3)*3)+1) and ((((J-1)/3)*3)+3) such as K and L are not in C and
+      {I,J} != {K,L}
+      
+    have X' the set X with the tupples {I,J} and {K,L} swapped
+    
+    have COSTB the value calculated by counting the number of repeated value in a row and in a column of X'
+    if COSTB == 0
+      return X'
+    else if COSTB < COST OR exp(-(COST-COSTB)/T) > 0.5
+      T = ALPHA * T
+      set COST with COSTB
+      set X with X'
+    else
+      STUCK = STUCK + 1
+    endif
+  end while
+end while
