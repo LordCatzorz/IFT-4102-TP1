@@ -12,17 +12,19 @@ namespace IFT4102.TP1.Question2
 
         Grid G;
         double T;
-        double Alpha;
+        double Delta;
         int Order;
+        double Comparaison;
 
 
-        public Solver(int _order, string _path, double _t, double _alpha)
+        public Solver(int _order, string _path, double _t, double _delta, double _comparaison)
         {
             Order = _order;
             random = new Random((int)DateTime.Now.Ticks);
             T = _t;
-            Alpha = _alpha;
+            Delta = _delta;
             G = new Grid(_order, _path);
+            Comparaison = _comparaison;
         }
 
         private void PlaceRandomNumberInGrid(ref Grid _grid)
@@ -54,21 +56,24 @@ namespace IFT4102.TP1.Question2
 
         public string Solve()
         {
-            FileStream fs;
-            fs = new FileStream("./solution.csv", FileMode.Create);
+            // FileStream fs;
+            //fs = new FileStream("./solution.csv", FileMode.Create);
             UnicodeEncoding uni = new UnicodeEncoding();
-            int nbReset = 0;
+            int nbReset = -1;
             int nbInteration = 0;
             while (true)
             {
-                Console.WriteLine("Reset : " + nbReset++);
+                //Console.WriteLine("Reset : " + nbReset++);
                 int stuck = 0;
                 double t = T;
                 Grid X = new Grid(G);
                 PlaceRandomNumberInGrid(ref X);
                 int cost = X.getCost();
-                while (cost > 0 && stuck <= 200)
+
+                nbReset++;
+                while (cost > 0 && stuck <= 50)
                 {
+                    nbInteration++;
                     //TODO: Régler un bug potenciel si 8 des 9 cas d'un square sont fixés.
                     //Get Swap Position;
                     int i, j, k, l;
@@ -101,24 +106,24 @@ namespace IFT4102.TP1.Question2
                     //Console.WriteLine(XPrime.ToString());
                     //Console.WriteLine(String.Format("Swap:<{0},{1}> and <{2},{3}>", i, j, k, l));
                     int costB = XPrime.getCost();
-                    string s = (++nbInteration).ToString() + ',' + costB.ToString()+System.Environment.NewLine;
-                    fs.Write(uni.GetBytes(s),0, uni.GetByteCount(s));
+                    //string s = (++nbInteration).ToString() + ',' + costB.ToString() + System.Environment.NewLine;
+                    //fs.Write(uni.GetBytes(s), 0, uni.GetByteCount(s));
                     double percentage = Math.Exp((-((double)(costB - cost))) / t);
-                    if (t < 0.01)
-                    {
-                        percentage = 0;
-                    }
+                    //if (t < 0.01)
+                    //{
+                    //    percentage = 0;
+                    //}
                     //if (costB > cost)
                     //{
-                    //    //Console.WriteLine(percentage);
+                    //    Console.WriteLine(percentage);
                     //}
                     if (costB == 0)
                     {
-                        return XPrime.ToString(); // Solution;
+                        return "Total iteration " + nbInteration.ToString() + Environment.NewLine + "Total reset " + nbReset + Environment.NewLine + XPrime.ToString(); // Solution;
                     }
-                    else if (costB < cost || percentage > 0.5)
+                    else if (costB < cost || percentage > Comparaison)
                     {
-                        t = Alpha * t;
+                        t = t / (1 + (Math.Log(1 + Delta) / 811) * t);
                         cost = costB;
                         X = XPrime;
                         stuck = 0;
