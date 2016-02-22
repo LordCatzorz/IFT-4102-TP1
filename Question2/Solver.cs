@@ -108,7 +108,7 @@ namespace IFT4102.TP1.Question2
                     int costB = XPrime.getCost();
                     //string s = (++nbInteration).ToString() + ',' + costB.ToString() + System.Environment.NewLine;
                     //fs.Write(uni.GetBytes(s), 0, uni.GetByteCount(s));
-                    double percentage = Math.Exp((-((double)(costB - cost))) / t);
+                    double percentage = Math.Exp((((double)(cost-costB))) / t);
                     //if (t < 0.01)
                     //{
                     //    percentage = 0;

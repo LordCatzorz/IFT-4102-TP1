@@ -25,20 +25,20 @@ namespace IFT4102.TP1.Question2
             for (int i = 0; i < 50; i++)
             {
                 start.Restart();
-                Solver s = new Solver(3, @"C:\ULAVAL\IFT-4102\TP1\Question2\sudoku\49151.txt", 810, 0.5, 0.8);
+                Solver s = new Solver(3, @"C:\ULAVAL\IFT-4102\TP1\Question2\sudoku\base.txt", 810, 0.5, 0.8);
                 string solution = s.Solve();
                 //totalReset += reset;
                 start.Stop();
                 string stime = "Temps : " + start.ElapsedMilliseconds + "ms" + Environment.NewLine + solution + Environment.NewLine;
                 Console.Write(stime);// + solution );
-                                     // fs.Write(uni.GetBytes(stime), 0, uni.GetByteCount(stime));
-                                     // }
-                                     // long total = start.ElapsedMilliseconds;
-                                     // string timeTotal = total + "ms";
-                                     // string timeMoyen = (total / 20.0) + "ms";
-                                     // //stime = "With comparaison : " + (1 - 0.02 * j) + " took a total of " + timeTotal + " Moyen : " + timeMoyen + " and moyenReset " + totalReset / 20 + Environment.NewLine;
-                                     // Console.Write(stime);
-                                     //fs.Write(uni.GetBytes(stime), 0, uni.GetByteCount(stime));
+                fs.Write(uni.GetBytes(stime), 0, uni.GetByteCount(stime));
+                // }
+                // long total = start.ElapsedMilliseconds;
+                // string timeTotal = total + "ms";
+                // string timeMoyen = (total / 20.0) + "ms";
+                // //stime = "With comparaison : " + (1 - 0.02 * j) + " took a total of " + timeTotal + " Moyen : " + timeMoyen + " and moyenReset " + totalReset / 20 + Environment.NewLine;
+                // Console.Write(stime);
+                //fs.Write(uni.GetBytes(stime), 0, uni.GetByteCount(stime));
             }
 
         }

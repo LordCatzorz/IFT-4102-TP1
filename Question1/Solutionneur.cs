@@ -39,6 +39,7 @@ namespace Question1
                 }
                 foreach (Grille nPrime in n.getListSuccessor())
                 {
+                    questionnaire.etatExplorer.Add(nPrime.getStringEtat());
                     if (Contient(OPEN, nPrime) != -1)
                     {
                         int position = Contient(OPEN, nPrime);
